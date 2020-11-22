@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище dataBaseSetModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PatientsList">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="int" Nullable="false" />
+          <Property Name="weight" Type="real" />
+          <Property Name="aptttargetMin" Type="real" />
+          <Property Name="aptttargetMax" Type="real" />
+        </EntityType>
+        <EntityType Name="RecordsList">
+          <Key>
+            <PropertyRef Name="recordID" />
+          </Key>
+          <Property Name="recordID" Type="int" Nullable="false" />
+          <Property Name="patientID" Type="int" />
+          <Property Name="actualTime" Type="datetime" />
+          <Property Name="lastApttTime" Type="datetime" />
+          <Property Name="lastAptt" Type="real" />
+          <Property Name="actualAptt" Type="real" />
+          <Property Name="submitedAptt" Type="real" />
+          <Property Name="recomendedAptt" Type="real" />
+        </EntityType>
+        <Association Name="FK__RecordsLi__patie__398D8EEE">
+          <End Role="PatientsList" Type="Self.PatientsList" Multiplicity="0..1" />
+          <End Role="RecordsList" Type="Self.RecordsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsList">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="RecordsList">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище dataBaseSetModelContainer">
+          <EntitySet Name="PatientsList" EntityType="Self.PatientsList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordsList" EntityType="Self.RecordsList" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__RecordsLi__patie__398D8EEE" Association="Self.FK__RecordsLi__patie__398D8EEE">
+            <End Role="PatientsList" EntitySet="PatientsList" />
+            <End Role="RecordsList" EntitySet="RecordsList" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dataBaseSetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PatientsList">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Single" />
+          <Property Name="aptttargetMin" Type="Single" />
+          <Property Name="aptttargetMax" Type="Single" />
+          <NavigationProperty Name="RecordsLists" Relationship="Self.FK__RecordsLi__patie__398D8EEE" FromRole="PatientsList" ToRole="RecordsList" />
+        </EntityType>
+        <EntityType Name="RecordsList">
+          <Key>
+            <PropertyRef Name="recordID" />
+          </Key>
+          <Property Name="recordID" Type="Int32" Nullable="false" />
+          <Property Name="patientID" Type="Int32" />
+          <Property Name="actualTime" Type="DateTime" Precision="3" />
+          <Property Name="lastApttTime" Type="DateTime" Precision="3" />
+          <Property Name="lastAptt" Type="Single" />
+          <Property Name="actualAptt" Type="Single" />
+          <Property Name="submitedAptt" Type="Single" />
+          <Property Name="recomendedAptt" Type="Single" />
+          <NavigationProperty Name="PatientsList" Relationship="Self.FK__RecordsLi__patie__398D8EEE" FromRole="RecordsList" ToRole="PatientsList" />
+        </EntityType>
+        <Association Name="FK__RecordsLi__patie__398D8EEE">
+          <End Role="PatientsList" Type="Self.PatientsList" Multiplicity="0..1" />
+          <End Role="RecordsList" Type="Self.RecordsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientsList">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="RecordsList">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dataBaseSetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PatientsLists" EntityType="Self.PatientsList" />
+          <EntitySet Name="RecordsLists" EntityType="Self.RecordsList" />
+          <AssociationSet Name="FK__RecordsLi__patie__398D8EEE" Association="Self.FK__RecordsLi__patie__398D8EEE">
+            <End Role="PatientsList" EntitySet="PatientsLists" />
+            <End Role="RecordsList" EntitySet="RecordsLists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище dataBaseSetModelContainer" CdmEntityContainer="dataBaseSetEntities">
+          <EntitySetMapping Name="PatientsLists">
+            <EntityTypeMapping TypeName="dataBaseSetModel.PatientsList">
+              <MappingFragment StoreEntitySet="PatientsList">
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="aptttargetMin" ColumnName="aptttargetMin" />
+                <ScalarProperty Name="aptttargetMax" ColumnName="aptttargetMax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordsLists">
+            <EntityTypeMapping TypeName="dataBaseSetModel.RecordsList">
+              <MappingFragment StoreEntitySet="RecordsList">
+                <ScalarProperty Name="recordID" ColumnName="recordID" />
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="actualTime" ColumnName="actualTime" />
+                <ScalarProperty Name="lastApttTime" ColumnName="lastApttTime" />
+                <ScalarProperty Name="lastAptt" ColumnName="lastAptt" />
+                <ScalarProperty Name="actualAptt" ColumnName="actualAptt" />
+                <ScalarProperty Name="submitedAptt" ColumnName="submitedAptt" />
+                <ScalarProperty Name="recomendedAptt" ColumnName="recomendedAptt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
